@@ -1,18 +1,19 @@
 import logging
 import os
-import subprocess
 
 from filetype import filetype
 from telegram.ext import CallbackContext
 from telegram.update import Update
+
+from src.Utilities.cmd_logger import result_of
 
 SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 
 
 def document_handler(update: Update, context: CallbackContext):
     logger = logging.getLogger()
-    logger.info(subprocess.check_output("pwd").decode('utf-8'))
-    logger.info(subprocess.check_output(["ls", "-lah"]).decode('utf-8'))
+    logger.info(result_of("pwd"))
+    logger.info(result_of("ls -lah"))
     # remove meta and apply fawkes
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)

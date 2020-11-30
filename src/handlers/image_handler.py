@@ -4,6 +4,7 @@ import subprocess
 
 from telegram.ext import CallbackContext
 from telegram.update import Update
+from src.Utilities.cmd_logger import result_of
 
 FAWKES_MODE = os.getenv("FAWKES_MODE")
 
@@ -24,7 +25,7 @@ def image_handler(update: Update, context: CallbackContext):
     try:
         logger.info("Goes into fawkes try-catch")
         run_protection = subprocess.call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
-        logger.info(run_protection.decode('utf-8'))
+        logger.info(run_protection)
         logger.info("fawkes try-catch finished")
 
     except Exception as e:
@@ -32,8 +33,7 @@ def image_handler(update: Update, context: CallbackContext):
         logger.critical("EXCEPTION at fawkes section")
 
     logger.info("Preparing for sending photo\n")
-    ls_proc = subprocess.check_output(["ls", "images"])
-    logger.info(ls_proc.decode('utf-8'))
+    logger.info(result_of("ls images"))
     logger.info("\nStarting image sender")
     try:
         _ = context.bot.send_photo(chat_id=update.effective_message.chat_id,
@@ -42,3 +42,4 @@ def image_handler(update: Update, context: CallbackContext):
     except Exception as e:
         logger.error(e)
         logger.critical("EXCEPTION at photo sender section")
+# TODO: Add photo deletion
