@@ -46,6 +46,7 @@ def image_handler(update: Update, context: CallbackContext):
     try:
         os.remove("images/image.jpg")
         update.message.reply_text("Original photo successfully removed from server")
+        logger.info("Original photo successfully removed")
     except Exception:
         logger.error("Can't remove original image")
         update.message.reply_text("Error at removing original photo from server")
@@ -54,6 +55,7 @@ def image_handler(update: Update, context: CallbackContext):
     try:
         os.remove("images/image_{0}_cloaked.png".format(FAWKES_MODE))
         update.message.reply_text("Cloaked photo successfully removed from server")
+        logger.info("Cloaked photo successfully removed")
     except Exception:
         logger.error("Can't remove cloaked image")
         update.message.reply_text("Error at removing cloaked photo from server")
