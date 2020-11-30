@@ -12,17 +12,26 @@ SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 
 def document_handler(update: Update, context: CallbackContext):
     logger = logging.getLogger()
-    logger.info(result_of("pwd"))
-    logger.info(result_of("ls -lah"))
     # remove meta and apply fawkes
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
+    logger.info("File downloading started")
     file.download('images/image.jpg')
     logger.info("File successfully downloaded")
 
+    logger.info("Guessing file type")
     kind = filetype.guess('images/image.jpg')
     if kind is None:
         logger.error('Cannot guess file type!')
+        update.message.reply_text("Cannot guess file type. This file type not supported")
+
+        try:
+            logger.info("Preparing for file deletion from server (kind guess)")
+            os.remove("images/image.jpg")
+            update.message.reply_text("File successfully removed from server")
+        except Exception:
+            logger.error("Can't remove file (kind guess)")
+            update.message.reply_text("Error at removing file from server")
 
         return
 
