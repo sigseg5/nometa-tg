@@ -9,21 +9,18 @@ from src.Utilities.cmd_logger import result_of
 FAWKES_MODE = os.getenv("FAWKES_MODE")
 
 
-# FIXME: Exception 'int' object has no attribute 'decode'
-# FIXME: Remove file_id hash
-# FIXME: fawkes apply for 2 images ??
-
 def image_handler(update: Update, context: CallbackContext):
     logger = logging.getLogger()
     logger.info("image_handler started")
     file = context.bot.getFile(update.message.photo[-1].file_id)
-    logger.info("file_id: " + str(update.message.photo[-1].file_id))
-    logger.info("File downloading started")
+    logger.info("Photo downloading started")
     file.download('images/image.jpg')
-    logger.info("File downloading finished")
+    logger.info("Photo downloading finished")
+    update.message.reply_text("Photo successfully downloaded")
 
     try:
-        logger.info("Goes into fawkes try-catch")
+        logger.info("Goes into fawkes section")
+        update.message.reply_text("Applying face hider tools, wait...")
         run_protection = subprocess.call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
         logger.info(run_protection)
         logger.info("fawkes try-catch finished")
@@ -31,6 +28,7 @@ def image_handler(update: Update, context: CallbackContext):
     except Exception as e:
         logger.error(e)
         logger.critical("EXCEPTION at fawkes section")
+        update.message.reply_text("Error at hiding faces")
 
     logger.info("Preparing for sending photo\n")
     logger.info(result_of("ls images"))
@@ -42,4 +40,20 @@ def image_handler(update: Update, context: CallbackContext):
     except Exception as e:
         logger.error(e)
         logger.critical("EXCEPTION at photo sender section")
-# TODO: Add photo deletion
+        update.message.reply_text("Error at sending photo")
+
+    logger.info("Preparing for original photo deletion on server")
+    try:
+        os.remove("images/image.jpg")
+        update.message.reply_text("Original photo successfully removed from server")
+    except Exception:
+        logger.error("Can't remove original image")
+        update.message.reply_text("Error at removing original photo from server")
+
+    logger.info("Preparing for cloaked photo deletion on server")
+    try:
+        os.remove("images/image_{0}_cloaked.png".format(FAWKES_MODE))
+        update.message.reply_text("Cloaked photo successfully removed from server")
+    except Exception:
+        logger.error("Can't remove cloaked image")
+        update.message.reply_text("Error at removing cloaked photo from server")
