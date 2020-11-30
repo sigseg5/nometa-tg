@@ -1,8 +1,8 @@
 from telegram.ext import Updater
-import logging
+from logging import getLogger
 
 
 def run(updater: Updater):
-    logger = logging.getLogger()
+    logger = getLogger()
     logger.info("Starting polling")
     updater.start_polling()

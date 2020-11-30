@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import logging
-import os
+from logging import getLogger, basicConfig, INFO
+from os import getenv
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -12,15 +12,15 @@ from src.handlers.setting_handler import settings_handler
 from src.handlers.unsupported_handler import unsupported_handler
 from src.handlers.video_handler import video_handler
 
-logging.basicConfig(level=logging.INFO,
+basicConfig(level=INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger()
+logger = getLogger()
 
 APP_VER = "0.0.1"
 
-TOKEN = os.getenv("TOKEN")
-META_DELETION = os.getenv("META_DELETION")
-FAWKES_APPLY = os.getenv("FAWKES_APPLY")
+TOKEN = getenv("TOKEN")
+META_DELETION = getenv("META_DELETION")
+FAWKES_APPLY = getenv("FAWKES_APPLY")
 
 
 if __name__ == '__main__':

@@ -1,16 +1,16 @@
-import logging
-import os
-import subprocess
+from logging import getLogger
+from os import remove, getenv
+from subprocess import call
 
 from telegram.ext import CallbackContext
 from telegram.update import Update
 from src.Utilities.cmd_logger import result_of
 
-FAWKES_MODE = os.getenv("FAWKES_MODE")
+FAWKES_MODE = getenv("FAWKES_MODE")
 
 
 def image_handler(update: Update, context: CallbackContext):
-    logger = logging.getLogger()
+    logger = getLogger()
     logger.info("image_handler started")
     file = context.bot.getFile(update.message.photo[-1].file_id)
     logger.info("Photo downloading started")
@@ -21,7 +21,7 @@ def image_handler(update: Update, context: CallbackContext):
     try:
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")
-        run_protection = subprocess.call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
+        run_protection = call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
         logger.info(run_protection)
         logger.info("fawkes try-catch finished")
 
@@ -44,7 +44,7 @@ def image_handler(update: Update, context: CallbackContext):
 
     logger.info("Preparing for original photo deletion on server")
     try:
-        os.remove("images/image.jpg")
+        remove("images/image.jpg")
         update.message.reply_text("Original photo successfully removed from server")
         logger.info("Original photo successfully removed")
     except Exception:
@@ -53,7 +53,7 @@ def image_handler(update: Update, context: CallbackContext):
 
     logger.info("Preparing for cloaked photo deletion on server")
     try:
-        os.remove("images/image_{0}_cloaked.png".format(FAWKES_MODE))
+        remove("images/image_{0}_cloaked.png".format(FAWKES_MODE))
         update.message.reply_text("Cloaked photo successfully removed from server")
         logger.info("Cloaked photo successfully removed")
     except Exception:
