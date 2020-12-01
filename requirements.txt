@@ -21,7 +21,6 @@ numpy==1.16.4
 opt-einsum==3.3.0
 packaging==20.4
 Pillow==8.0.1
-pip==20.2.4
 protobuf==3.13.0
 pycparser==2.20
 pyparsing==2.4.7
