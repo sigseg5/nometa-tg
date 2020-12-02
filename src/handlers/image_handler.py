@@ -18,6 +18,7 @@ def image_handler(update: Update, context: CallbackContext):
     logger.info("Photo downloading finished")
     update.message.reply_text("Photo successfully downloaded")
 
+    # FIXME: Apply check_output if faces not founded
     try:
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")

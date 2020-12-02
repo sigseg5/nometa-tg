@@ -11,6 +11,7 @@ from src.handlers.image_handler import image_handler
 from src.handlers.setting_handler import settings_handler
 from src.handlers.unsupported_handler import unsupported_handler
 from src.handlers.video_handler import video_handler
+from src.handlers.start_handler import start_handler
 
 basicConfig(level=INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -28,6 +29,7 @@ if __name__ == '__main__':
     updater = Updater(token=TOKEN, use_context=True)
 
     updater.dispatcher.add_handler(CommandHandler("set", settings_handler))
+    updater.dispatcher.add_handler(CommandHandler("start", start_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.photo, image_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.document, document_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.video, video_handler))
