@@ -4,8 +4,7 @@ from filetype import filetype
 from telegram.ext import CallbackContext
 from telegram.update import Update
 
-# from src.Utilities.metadata_worker import delete_metadata
-from src.Utilities.cmd_logger import result_of
+from src.Utilities.metadata_worker import delete_metadata
 
 SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 
@@ -46,18 +45,16 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Error at removing file from server")
         return
     else:
-        # TODO: Remove metadata and apply fawkes
+        # TODO: Apply fawkes
         logger.info("Metadata removing started")
-        # delete_metadata("images/image.jpg")
-        print("ls after saving clean file:")
-        result_of("ls -lah")
-        print("------------")
-        result_of("ls -lah images")
-        print("------------")
+        delete_metadata("images/image.jpg")
+        logger.info("Metadata was successfully deleted")
+        update.message.reply_text("Metadata was successfully deleted")
+
 
         logger.info("Sending document")
         try:
-            _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('images/image.jpg', 'rb'))
+            _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('images/clean_image.jpeg', 'rb'))
             logger.info("Document sending finished")
         except Exception:
             logger.error("Can't send document")

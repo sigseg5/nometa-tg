@@ -41,4 +41,5 @@ Werkzeug==1.0.1
 wheel==0.35.1
 wrapt==1.12.1
 zipp==3.4.0
-filetype
+filetype==1.0.7
+piexif==1.1.3
