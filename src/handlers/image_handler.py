@@ -10,14 +10,14 @@ FAWKES_MODE = getenv("FAWKES_MODE")
 
 def image_handler(update: Update, context: CallbackContext):
     logger = getLogger()
+    is_faces_found = False
+
     logger.info("image_handler started")
     file = context.bot.getFile(update.message.photo[-1].file_id)
     logger.info("Photo downloading started")
     file.download('images/image.jpg')
     logger.info("Photo downloading finished")
     update.message.reply_text("Photo successfully downloaded")
-    is_faces_found = False
-
     try:
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")
