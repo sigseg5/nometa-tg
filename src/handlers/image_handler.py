@@ -1,5 +1,5 @@
 from logging import getLogger
-from os import remove, getenv
+from os import remove, getenv, path
 from subprocess import call
 
 from telegram.ext import CallbackContext
@@ -17,13 +17,16 @@ def image_handler(update: Update, context: CallbackContext):
     file.download('images/image.jpg')
     logger.info("Photo downloading finished")
     update.message.reply_text("Photo successfully downloaded")
+    is_faces_found = False
 
-    # FIXME: Apply check_output if faces not founded
     try:
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")
-        run_protection = call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
-        logger.info(run_protection)
+        _ = call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
+        if path.exists('images/image_{0}_cloaked.png'.format(FAWKES_MODE)):
+            is_faces_found = True
+`
+        logger.info("Does faces founded?: {}".format(is_faces_found))
         logger.info("fawkes try-catch finished")
 
     except Exception as e:
@@ -32,7 +35,6 @@ def image_handler(update: Update, context: CallbackContext):
         update.message.reply_text("Error at hiding faces")
 
     logger.info("Preparing for sending photo\n")
-    logger.info(result_of("ls images"))
     logger.info("\nStarting image sender")
     try:
         _ = context.bot.send_photo(chat_id=update.effective_message.chat_id,
