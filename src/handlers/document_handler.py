@@ -1,31 +1,37 @@
 from logging import getLogger
-from os import remove
+from os import remove, getenv, path
+from subprocess import call
+
 from filetype import filetype
 from telegram.ext import CallbackContext
 from telegram.update import Update
 
 from src.Utilities.metadata_worker import delete_metadata
+from src.Utilities.cmd_logger import result_of
 
 SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
+FAWKES_MODE = getenv("FAWKES_MODE")
 
 
 def document_handler(update: Update, context: CallbackContext):
     logger = getLogger()
+    is_faces_found = False
+
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
     logger.info("File downloading started")
-    file.download('images/image.jpg')
+    file.download('documents/image.jpg')
     logger.info("File successfully downloaded")
 
     logger.info("Guessing file type")
-    kind = filetype.guess('images/image.jpg')
+    kind = filetype.guess('documents/image.jpg')
     if kind is None:
         logger.error('Cannot guess file type!')
         update.message.reply_text("Cannot guess file type. This file type not supported")
 
         try:
             logger.info("Preparing for file deletion from server (kind guess)")
-            remove("images/image.jpg")
+            remove("documents/image.jpg")
             update.message.reply_text("File successfully removed from server")
         except Exception:
             logger.error("Can't remove file (kind guess)")
@@ -38,24 +44,71 @@ def document_handler(update: Update, context: CallbackContext):
         update.message.reply_text("{} not supported!".format(kind.mime))
         logger.info("Removing file...")
         try:
-            remove("images/image.jpg")
+            remove("documents/image.jpg")
             update.message.reply_text("File successfully removed from server")
         except Exception:
             logger.error("Can't remove file")
             update.message.reply_text("Error at removing file from server")
         return
     else:
-        # TODO: Apply fawkes
         logger.info("Metadata removing started")
-        delete_metadata("images/image.jpg")
+        delete_metadata("documents/image.jpg")
         logger.info("Metadata was successfully deleted")
         update.message.reply_text("Metadata was successfully deleted")
 
-
-        logger.info("Sending document")
+        logger.info("Preparing for original file deletion on server")
         try:
-            _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('images/clean_image.jpeg', 'rb'))
-            logger.info("Document sending finished")
+            remove("documents/image.jpg")
+            update.message.reply_text("Original file successfully removed from server")
+            logger.info("Original file successfully removed")
         except Exception:
-            logger.error("Can't send document")
-            return
+            logger.error("Can't remove original file")
+            update.message.reply_text("Error at removing original file from server")
+
+        try:
+            logger.info("Goes into fawkes section")
+            update.message.reply_text("Applying face hider tools, wait...")
+            _ = call(["fawkes", "-d", "documents", "--mode", FAWKES_MODE])
+            logger.info(result_of("ls documents"))
+            if path.exists('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE)):
+                is_faces_found = True
+
+            logger.info("Does faces found?: {}".format(is_faces_found))
+            logger.info("fawkes try-catch finished")
+
+        except Exception as e:
+            logger.error(e)
+            logger.critical("EXCEPTION at fawkes section")
+            update.message.reply_text("Error at hiding faces")
+
+        if is_faces_found:
+            pass
+        else:
+            logger.info("No faces found")
+            update.message.reply_text("Can't find any faces")
+            logger.info("Preparing for sending photo without metadata")
+            try:
+                _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('documents/clean_image.png', 'rb'))
+                logger.info("Document without metadata sending finished")
+                update.message.reply_text("Metadata removed from photo")
+                logger.info("Photo sending finished")
+            except Exception as e:
+                logger.error(e)
+                logger.critical("EXCEPTION at file sender section for remove metadata")
+                update.message.reply_text("Error at sending file")
+
+            # try:
+            #     remove("documents/image.jpg")
+            #     update.message.reply_text("Original file successfully removed from server")
+            #     logger.info("Original file successfully removed")
+            # except Exception:
+            #     logger.error("Can't remove original file")
+            #     update.message.reply_text("Error at removing original file from server")
+
+            # try:
+            #     remove("documents/image.jpg")
+            #     update.message.reply_text("Original file successfully removed from server")
+            #     logger.info("Original file successfully removed")
+            # except Exception:
+            #     logger.error("Can't remove original file")
+            #     update.message.reply_text("Error at removing original file from server")
