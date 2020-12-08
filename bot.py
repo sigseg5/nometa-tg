@@ -42,10 +42,10 @@ if __name__ == '__main__':
     updater.dispatcher.add_handler(MessageHandler(Filters.command, unsupported_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.forwarded, unsupported_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.voice, unsupported_handler))
-    updater.dispatcher.add_handler(MessageHandler(Filters.private, unsupported_handler))
+    updater.dispatcher.add_handler(MessageHandler(Filters.chat_type.private, unsupported_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.status_update, unsupported_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.contact, unsupported_handler))
-    updater.dispatcher.add_handler(MessageHandler(Filters.user, unsupported_handler))
+    updater.dispatcher.add_handler(MessageHandler(Filters.user(), unsupported_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.group, unsupported_handler))
 
     run(updater)
