@@ -88,7 +88,7 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Can't find any faces")
             logger.info("Preparing for sending photo without metadata")
             try:
-                _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('documents/clean_image.png', 'rb'))
+                _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('documents/clean_image.jpg', 'rb'))
                 logger.info("Document without metadata sending finished")
                 update.message.reply_text("Metadata removed from photo")
                 logger.info("Photo sending finished")
@@ -97,18 +97,10 @@ def document_handler(update: Update, context: CallbackContext):
                 logger.critical("EXCEPTION at file sender section for remove metadata")
                 update.message.reply_text("Error at sending file")
 
-            # try:
-            #     remove("documents/image.jpg")
-            #     update.message.reply_text("Original file successfully removed from server")
-            #     logger.info("Original file successfully removed")
-            # except Exception:
-            #     logger.error("Can't remove original file")
-            #     update.message.reply_text("Error at removing original file from server")
-
-            # try:
-            #     remove("documents/image.jpg")
-            #     update.message.reply_text("Original file successfully removed from server")
-            #     logger.info("Original file successfully removed")
-            # except Exception:
-            #     logger.error("Can't remove original file")
-            #     update.message.reply_text("Error at removing original file from server")
+            try:
+                remove("documents/clean_image.jpg")
+                update.message.reply_text("File without metadata successfully removed from server")
+                logger.info("File without metadata successfully removed")
+            except Exception:
+                logger.error("Can't remove file without metadata")
+                update.message.reply_text("Error at removing file without metadata from server")
