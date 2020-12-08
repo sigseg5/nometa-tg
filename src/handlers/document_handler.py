@@ -82,13 +82,41 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Error at hiding faces")
 
         if is_faces_found:
-            pass
+            logger.info("Preparing for sending cloaked file\n")
+            try:
+                _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
+                                              document=open('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE),
+                                                            'rb'))
+                logger.info("Cloaked file sending finished")
+            except Exception as e:
+                logger.error(e)
+                logger.critical("EXCEPTION at cloaked file sender section")
+                update.message.reply_text("Error at sending cloaked file")
+
+            logger.info("Preparing for clean file deletion on server")
+            try:
+                remove("documents/clean_image.jpg")
+                update.message.reply_text("Clean version of file successfully removed from server")
+                logger.info("Clean version of file successfully removed")
+            except Exception:
+                logger.error("Can't remove clean version of file")
+                update.message.reply_text("Error at removing clean version of file from server")
+
+            logger.info("Preparing for cloaked photo deletion on server")
+            try:
+                remove("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE))
+                update.message.reply_text("Cloaked file successfully removed from server")
+                logger.info("Cloaked file successfully removed")
+            except Exception:
+                logger.error("Can't remove cloaked file")
+                update.message.reply_text("Error at removing cloaked file from server")
         else:
             logger.info("No faces found")
             update.message.reply_text("Can't find any faces")
             logger.info("Preparing for sending photo without metadata")
             try:
-                _ = context.bot.send_document(chat_id=update.effective_message.chat_id, document=open('documents/clean_image.jpg', 'rb'))
+                _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
+                                              document=open('documents/clean_image.jpg', 'rb'))
                 logger.info("Document without metadata sending finished")
                 update.message.reply_text("Metadata removed from photo")
                 logger.info("Photo sending finished")
