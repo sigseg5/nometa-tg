@@ -17,7 +17,7 @@ basicConfig(level=INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = getLogger()
 
-APP_VER = "0.0.1"
+APP_VER = "0.1.0"
 
 TOKEN = getenv("TOKEN")
 META_DELETION = getenv("META_DELETION")
@@ -25,9 +25,10 @@ FAWKES_APPLY = getenv("FAWKES_APPLY")
 
 
 if __name__ == '__main__':
-    logger.info("Starting bot")
+    logger.info("Starting bot, version {}".format(APP_VER))
     updater = Updater(token=TOKEN, use_context=True)
 
+    # Settings not supported yet
     updater.dispatcher.add_handler(CommandHandler("set", settings_handler))
     updater.dispatcher.add_handler(CommandHandler("start", start_handler))
     updater.dispatcher.add_handler(MessageHandler(Filters.photo, image_handler))
