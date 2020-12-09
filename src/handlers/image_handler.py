@@ -14,10 +14,8 @@ def image_handler(update: Update, context: CallbackContext):
 
     logger.info("image_handler started")
     file = context.bot.getFile(update.message.photo[-1].file_id)
-    logger.info("Photo downloading started")
     file.download('images/image.jpg')
-    logger.info("Photo downloading finished")
-    update.message.reply_text("Photo successfully downloaded")
+
     try:
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")
@@ -34,7 +32,7 @@ def image_handler(update: Update, context: CallbackContext):
         update.message.reply_text("Error at hiding faces")
 
     if is_faces_found:
-        logger.info("Preparing for sending photo\n")
+        logger.info("Preparing for sending photo")
         try:
             _ = context.bot.send_photo(chat_id=update.effective_message.chat_id,
                                        photo=open('images/image_{0}_cloaked.png'.format(FAWKES_MODE), 'rb'))
@@ -65,7 +63,7 @@ def image_handler(update: Update, context: CallbackContext):
     else:
         logger.info("No faces found")
         update.message.reply_text("Can't find any faces")
-        logger.info("Preparing for sending photo for remove metadata\n")
+        logger.info("Preparing for sending photo for remove metadata")
         try:
             _ = context.bot.send_photo(chat_id=update.effective_message.chat_id,
                                        photo=open('images/image.jpg', 'rb'))

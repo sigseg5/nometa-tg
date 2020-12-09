@@ -19,9 +19,7 @@ def document_handler(update: Update, context: CallbackContext):
 
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
-    logger.info("File downloading started")
     file.download('documents/image.jpg')
-    logger.info("File successfully downloaded")
 
     logger.info("Guessing file type")
     kind = filetype.guess('documents/image.jpg')
