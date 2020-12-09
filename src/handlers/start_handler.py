@@ -5,5 +5,8 @@ from telegram.update import Update
 
 def start_handler(update: Update, context: CallbackContext):
     logger = getLogger()
-    logger.info("User {} started bot".format(update.effective_user["id"]))
-    update.message.reply_text("Hello from bot")
+    logger.info("User started bot")
+    update.message.reply_text("This bot that provides an opportunity to automatically delete all metadata from photo "
+                              "and apply fawkes face hiding tool to hide you face from face recognition apps in "
+                              "social networks etc.\nNow you can send photo as photo or document.\nYou will get "
+                              "message if tool can't find any faces.")

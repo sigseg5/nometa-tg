@@ -1,11 +1,11 @@
 # nometa-tg
-This is a Python Telegram bot that provides an opportunity to automatically delete all metadata from photo and apply [fawkes](https://github.com/Shawn-Shan/fawkes) tool to hide you face from face recognition apps in social networks etc.
+This is a Python Telegram bot that provides an opportunity to automatically delete all metadata from photo and apply [Fawkes](https://github.com/Shawn-Shan/fawkes) tool to hide you face from face recognition apps in social networks etc.
 
 ## Info
-By default, this bot automatically remove all metadata from photos and apply fawkes at a minimal mode. You can specify fawkes settings (`FAWKES_MODE`) in `.env` file.<br>
+By default, this bot automatically remove all metadata from photos and apply Fawkes at a minimal mode. You can specify Fawkes settings (`FAWKES_MODE`) in `.env` file.<br>
 At this release you can send a photo as photo or document.You will get message if tool can't find any faces.<br>
 In future release will be implemented settings manager, and may be video processing.<br>
-However, you can find full information about fawkes tool at [GitHub](https://github.com/Shawn-Shan/fawkes), and [this](https://www.shawnshan.com/files/publication/fawkes.pdf) academic paper
+However, you can find full information about Fawkes tool at [GitHub](https://github.com/Shawn-Shan/fawkes), and [this](https://www.shawnshan.com/files/publication/fawkes.pdf) academic paper
 
 ## Requirements
 * Telegram account
@@ -17,7 +17,7 @@ However, you can find full information about fawkes tool at [GitHub](https://git
 ### Choosing `FAWKES_MODE`
 FAWKES_MODE the tradeoff between privacy and perturbation size. Select from min, low, mid, high. The higher the mode is, the more perturbation will add to the image and provide stronger protection.<br>
 Feel free to play with mods and choose that mostly suits you (I prefer `min` or `low`)<br>
-In the image below you can see an example of how the fawkes tool works (photo from the fawkes GitHub page).
+In the image below you can see an example of how the Fawkes tool works (photo from the Fawkes GitHub page).
 ![](http://sandlab.cs.uchicago.edu/fawkes/files/obama.png)
 
 ### Run locally
