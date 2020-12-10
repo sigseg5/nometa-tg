@@ -29,7 +29,8 @@ Note: Maybe you should add `sudo` before all Docker-assigned commands
 
 ### Run locally
 Theoretically should work with Python 3.7, can't test it yet.
-I can't guaranty that this will be works
+I can't guaranty that this will be works, please use Docker
+* Create `images` and `documents` folder in project folder
 * Add `TOKEN` and `FAWKES_MODE` environment variables to your IDE config e.g. PyCharm. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram. For first run you can set `FAWKES_MODE=min`<br> E.g. ENV_VAR: `PYTHONUNBUFFERED=1;TOKEN=1234567890:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;FAWKES_MODE=min`
 * Run `pip install -r requirements.txt` to install dependencies
 * Run `bot.py` to start
