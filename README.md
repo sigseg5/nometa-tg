@@ -9,21 +9,15 @@ However, you can find full information about Fawkes tool at [GitHub](https://git
 
 ## Requirements
 * Telegram account
-* (Only for local running) Python 3.7
 * (Recommended) Installed [Docker](https://www.docker.com/)
 
 ## Usage
 
 ### Choosing `FAWKES_MODE`
-FAWKES_MODE the tradeoff between privacy and perturbation size. Select from min, low, mid, high. The higher the mode is, the more perturbation will add to the image and provide stronger protection.<br>
+FAWKES_MODE the tradeoff between privacy and perturbation size. Select from a min, low, mid, high. The higher the mode is, the more perturbation will add to the image and provide stronger protection.<br>
 Feel free to play with mods and choose that mostly suits you (I prefer `min` or `low`)<br>
 In the image below you can see an example of how the Fawkes tool works (photo from the Fawkes GitHub page).
 ![](http://sandlab.cs.uchicago.edu/fawkes/files/obama.png)
-
-### Run locally
-* Add `TOKEN` and `FAWKES_MODE` environment variables to your IDE config e.g. PyCharm. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram. For first run you can set `FAWKES_MODE=min`<br> E.g. ENV_VAR: `PYTHONUNBUFFERED=1;TOKEN=1234567890:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;FAWKES_MODE=min`
-* Run `pip install -r requirements.txt` to install dependencies
-* Run `bot.py` to start
 
 ### Run in Docker
 * Add TOKEN to .env file. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram
@@ -32,6 +26,13 @@ In the image below you can see an example of how the Fawkes tool works (photo fr
 * (Optional) Run `docker run --env-file .env nometa-tg:0.1.0 env` for check all environment variables for this image
 * Run `docker run --env-file .env nometa-tg:0.1.0` to start
 Note: Maybe you should add `sudo` before all Docker-assigned commands
+
+### Run locally
+Theoretically should work with Python 3.7, can't test it yet.
+I can't guaranty that this will be works
+* Add `TOKEN` and `FAWKES_MODE` environment variables to your IDE config e.g. PyCharm. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram. For first run you can set `FAWKES_MODE=min`<br> E.g. ENV_VAR: `PYTHONUNBUFFERED=1;TOKEN=1234567890:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;FAWKES_MODE=min`
+* Run `pip install -r requirements.txt` to install dependencies
+* Run `bot.py` to start
 
 ## Docker control
 
