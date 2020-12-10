@@ -14,6 +14,17 @@ FAWKES_MODE = getenv("FAWKES_MODE")
 
 
 def document_handler(update: Update, context: CallbackContext):
+    """
+        This function has multiple scope of responsibility:
+        1. Downloading a document as '.jpg', generally this is best solution for compatibility;
+        2. Guessing a file type. If type isn't supported file removes from server;
+        3. Checking is this file type supported by application. If type isn't supported file removes from server;
+        4. Removing metadata from document via calling 'metadata_worker.py';
+        2. Applying face hiding tool;
+        3. Sending cloaked and metadata-free file;
+        4. Removing original, metadata-free, and cloaked files from server.
+        Yep, this function definitely should be refactored...
+        """
     logger = getLogger()
     is_faces_found = False
 

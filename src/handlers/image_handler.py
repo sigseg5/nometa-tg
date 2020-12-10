@@ -9,6 +9,15 @@ FAWKES_MODE = getenv("FAWKES_MODE")
 
 
 def image_handler(update: Update, context: CallbackContext):
+    """
+    This function has multiple scope of responsibility:
+    1. Downloading a photo;
+    2. Applying face hiding tool;
+    3. Sending cloaked photo;
+    4. Removing original and cloaked photos from server.
+    At this case not needed apply metadata remove tool because Telegram automatically removes this data at photo sending.
+    Yep, this function definitely should be refactored...
+    """
     logger = getLogger()
     is_faces_found = False
 
