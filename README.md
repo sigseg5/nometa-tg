@@ -1,5 +1,8 @@
 # nometa-tg
-This is a Python Telegram bot that provides an opportunity to automatically delete all metadata from photo and apply [Fawkes](https://github.com/Shawn-Shan/fawkes) tool to hide you face from face recognition apps in social networks etc.
+This is a Python Telegram bot that provides an opportunity to automatically delete all metadata from photo and apply [Fawkes](https://github.com/Shawn-Shan/fawkes) tool to hide you face from face recognition apps in social networks etc.<br/>
+![GitHub repo size](https://img.shields.io/github/repo-size/sigseg5/nometa-tg)
+![GitHub last commit](https://img.shields.io/github/last-commit/sigseg5/nometa-tg)
+![GitHub Release Date](https://img.shields.io/github/release-date/sigseg5/nometa-tg)
 
 ## Info
 By default, this bot automatically remove all metadata from photos and apply Fawkes at a minimal mode. You can specify Fawkes settings (`FAWKES_MODE`) in `.env` file.<br>
