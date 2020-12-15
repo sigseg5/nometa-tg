@@ -1,4 +1,3 @@
-from logging import getLogger
 from telegram.ext import CallbackContext
 from telegram.update import Update
 
