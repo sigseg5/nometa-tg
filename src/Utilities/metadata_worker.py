@@ -10,5 +10,6 @@ def delete_metadata(full_path_to_img):
     folder, and after that move it to 'documents' folder.
     :param full_path_to_img: path to folder with documents e.g.'documents/image.jpg'
     """
+    # FIXME: Bug with PNG files
     piexif.remove(full_path_to_img, "clean_image.jpg")
     move("clean_image.jpg", "documents/clean_image.jpg")

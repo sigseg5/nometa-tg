@@ -9,7 +9,7 @@ from telegram.update import Update
 from src.Utilities.metadata_worker import delete_metadata
 from src.Utilities.cmd_logger import result_of
 
-SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
+SUPPORTED_MIME_LIST = "image/jpeg"
 FAWKES_MODE = getenv("FAWKES_MODE")
 
 
