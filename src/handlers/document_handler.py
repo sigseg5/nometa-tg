@@ -66,6 +66,8 @@ def document_handler(update: Update, context: CallbackContext):
         if kind.mime == "image/png":
             logger.info("This is PNG")
             remove_original_doc_from_server(logger, update)
+            logger.error("image/png isn't supported yet")
+            return 
         else:
             delete_metadata("documents/image")
             logger.info("Metadata was successfully deleted")
