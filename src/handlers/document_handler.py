@@ -10,6 +10,7 @@ from src.Utilities.metadata_worker import delete_metadata
 from src.Utilities.metadata_worker import delete_metadata_from_png
 from src.Utilities.cmd_logger import result_of
 from src.Utilities.misc import remove_original_doc_from_server
+from src.Utilities.misc import send_file
 
 SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 FAWKES_MODE = getenv("FAWKES_MODE")
@@ -67,7 +68,7 @@ def document_handler(update: Update, context: CallbackContext):
             logger.info("This is PNG")
             remove_original_doc_from_server(logger, update)
             logger.error("image/png isn't supported yet")
-            return 
+            return
         else:
             delete_metadata("documents/image")
             logger.info("Metadata was successfully deleted")
@@ -92,16 +93,9 @@ def document_handler(update: Update, context: CallbackContext):
                 update.message.reply_text("Error at hiding faces")
 
             if is_faces_found:
-                logger.info("Preparing for sending cloaked file\n")
-                try:
-                    _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
-                                                  document=open('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE),
-                                                                'rb'))
-                    logger.info("Cloaked file sending finished")
-                except Exception as e:
-                    logger.error(e)
-                    logger.critical("EXCEPTION at cloaked file sender section")
-                    update.message.reply_text("Error at sending cloaked file")
+                logger.info("Preparing for sending cloaked file")
+
+                send_file(logger, update, context, "cloaked")
 
                 logger.info("Preparing for clean file deletion on server")
                 try:
@@ -124,16 +118,8 @@ def document_handler(update: Update, context: CallbackContext):
                 logger.info("No faces found")
                 update.message.reply_text("Can't find any faces")
                 logger.info("Preparing for sending photo without metadata")
-                try:
-                    _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
-                                                  document=open('documents/clean_image.jpg', 'rb'))
-                    logger.info("Document without metadata sending finished")
-                    update.message.reply_text("Metadata removed from photo")
-                    logger.info("Photo sending finished")
-                except Exception as e:
-                    logger.error(e)
-                    logger.critical("EXCEPTION at file sender section for remove metadata")
-                    update.message.reply_text("Error at sending file")
+
+                send_file(logger, update, context, "clean")
 
                 try:
                     remove("documents/clean_image.jpg")
