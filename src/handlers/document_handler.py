@@ -9,7 +9,7 @@ from telegram.update import Update
 from src.Utilities.metadata_worker import delete_metadata
 from src.Utilities.cmd_logger import result_of
 
-SUPPORTED_MIME_LIST = "image/jpeg"
+SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 FAWKES_MODE = getenv("FAWKES_MODE")
 
 
@@ -30,17 +30,19 @@ def document_handler(update: Update, context: CallbackContext):
 
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
-    file.download('documents/image.jpg')
+    # file.download('documents/image.jpg')
+    file.download('documents/image')
 
     logger.info("Guessing file type")
-    kind = filetype.guess('documents/image.jpg')
+    # kind = filetype.guess('documents/image.jpg')
+    kind = filetype.guess('documents/image')
     if kind is None:
         logger.error('Cannot guess file type!')
         update.message.reply_text("Cannot guess file type. This file type not supported")
 
         try:
             logger.info("Preparing for file deletion from server (kind guess)")
-            remove("documents/image.jpg")
+            remove("documents/image")
             update.message.reply_text("File successfully removed from server")
         except Exception:
             logger.error("Can't remove file (kind guess)")
@@ -53,13 +55,14 @@ def document_handler(update: Update, context: CallbackContext):
         update.message.reply_text("{} not supported!".format(kind.mime))
         logger.info("Removing file...")
         try:
-            remove("documents/image.jpg")
+            remove("documents/image")
             update.message.reply_text("File successfully removed from server")
         except Exception:
             logger.error("Can't remove file")
             update.message.reply_text("Error at removing file from server")
         return
     else:
+        # TODO: add png section
         logger.info("Metadata removing started")
         delete_metadata("documents/image.jpg")
         logger.info("Metadata was successfully deleted")
