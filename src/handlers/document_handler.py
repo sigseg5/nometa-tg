@@ -9,6 +9,7 @@ from telegram.update import Update
 from src.Utilities.metadata_worker import delete_metadata
 from src.Utilities.metadata_worker import delete_metadata_from_png
 from src.Utilities.cmd_logger import result_of
+from src.Utilities.misc import remove_original_doc_from_server
 
 SUPPORTED_MIME_LIST = ("image/jpeg", "image/png")
 FAWKES_MODE = getenv("FAWKES_MODE")
@@ -31,11 +32,9 @@ def document_handler(update: Update, context: CallbackContext):
 
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
-    # file.download('documents/image.jpg')
     file.download('documents/image')
 
     logger.info("Guessing file type")
-    # kind = filetype.guess('documents/image.jpg')
     kind = filetype.guess('documents/image')
     if kind is None:
         logger.error('Cannot guess file type!')
@@ -63,23 +62,16 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Error at removing file from server")
         return
     else:
-        # TODO: add png section
         logger.info("Metadata removing started")
         if kind.mime == "image/png":
             logger.info("This is PNG")
+            remove_original_doc_from_server(logger, update)
         else:
             delete_metadata("documents/image")
             logger.info("Metadata was successfully deleted")
             update.message.reply_text("Metadata was successfully deleted")
 
-            logger.info("Preparing for original file deletion on server")
-            try:
-                remove("documents/image")
-                update.message.reply_text("Original file successfully removed from server")
-                logger.info("Original file successfully removed")
-            except Exception:
-                logger.error("Can't remove original file")
-                update.message.reply_text("Error at removing original file from server")
+            remove_original_doc_from_server(logger, update)
 
             try:
                 logger.info("Goes into fawkes section")
