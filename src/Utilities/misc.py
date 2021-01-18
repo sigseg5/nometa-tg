@@ -2,6 +2,8 @@ from os import remove, getenv
 from telegram.ext import CallbackContext
 from telegram.update import Update
 
+FAWKES_MODE = getenv("FAWKES_MODE")
+
 
 def remove_original_doc_from_server(logger, update):
     logger.info("Preparing for original file deletion on server")
@@ -15,9 +17,8 @@ def remove_original_doc_from_server(logger, update):
 
 
 def send_file(logger, update: Update, context: CallbackContext, mode):
-    FAWKES_MODE = getenv("FAWKES_MODE")
 
-    logger.info("Preparing for sending cloaked file\n")
+    logger.info("Preparing for sending cloaked file")
 
     if mode == "cloaked":
         try:
