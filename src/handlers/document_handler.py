@@ -45,8 +45,9 @@ def document_handler(update: Update, context: CallbackContext):
             logger.info("Preparing for file deletion from server (kind guess)")
             remove("documents/image")
             update.message.reply_text("File successfully removed from server")
-        except Exception:
+        except Exception as e:
             logger.error("Can't remove file (kind guess)")
+            logger.error(e.args)
             update.message.reply_text("Error at removing file from server")
         return
 
@@ -58,8 +59,9 @@ def document_handler(update: Update, context: CallbackContext):
         try:
             remove("documents/image")
             update.message.reply_text("File successfully removed from server")
-        except Exception:
+        except Exception as e:
             logger.error("Can't remove file")
+            logger.error(e.args)
             update.message.reply_text("Error at removing file from server")
         return
     else:
@@ -88,8 +90,8 @@ def document_handler(update: Update, context: CallbackContext):
                 logger.info("fawkes try-catch finished")
 
             except Exception as e:
-                logger.error(e)
-                logger.critical("EXCEPTION at fawkes section")
+                logger.error("EXCEPTION at fawkes section")
+                logger.error(e.args)
                 update.message.reply_text("Error at hiding faces")
 
             if is_faces_found:
@@ -102,8 +104,9 @@ def document_handler(update: Update, context: CallbackContext):
                     remove("documents/clean_image.jpg")
                     update.message.reply_text("Clean version of file successfully removed from server")
                     logger.info("Clean version of file successfully removed")
-                except Exception:
+                except Exception as e:
                     logger.error("Can't remove clean version of file")
+                    logger.error(e.args)
                     update.message.reply_text("Error at removing clean version of file from server")
 
                 logger.info("Preparing for cloaked photo deletion on server")
@@ -111,8 +114,9 @@ def document_handler(update: Update, context: CallbackContext):
                     remove("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE))
                     update.message.reply_text("Cloaked file successfully removed from server")
                     logger.info("Cloaked file successfully removed")
-                except Exception:
+                except Exception as e:
                     logger.error("Can't remove cloaked file")
+                    logger.error(e.args)
                     update.message.reply_text("Error at removing cloaked file from server")
             else:
                 logger.info("No faces found")
@@ -125,6 +129,7 @@ def document_handler(update: Update, context: CallbackContext):
                     remove("documents/clean_image.jpg")
                     update.message.reply_text("File without metadata successfully removed from server")
                     logger.info("File without metadata successfully removed")
-                except Exception:
+                except Exception as e:
                     logger.error("Can't remove file without metadata")
+                    logger.error(e.args)
                     update.message.reply_text("Error at removing file without metadata from server")

@@ -11,8 +11,9 @@ def remove_original_doc_from_server(logger, update):
         remove("documents/image")
         update.message.reply_text("Original file successfully removed from server")
         logger.info("Original file successfully removed")
-    except Exception:
+    except Exception as e:
         logger.error("Can't remove original file")
+        logger.error(e.args)
         update.message.reply_text("Error at removing original file from server")
 
 
@@ -26,8 +27,8 @@ def send_file(logger, update: Update, context: CallbackContext, mode):
                                           document=open('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE), 'rb'))
             logger.info("Cloaked file sending finished")
         except Exception as e:
-            logger.error(e)
-            logger.critical("EXCEPTION at cloaked file sender section")
+            logger.error("EXCEPTION at cloaked file sender section")
+            logger.error(e.args)
             update.message.reply_text("Error at sending cloaked file")
 
     elif mode == "clean":
@@ -38,6 +39,6 @@ def send_file(logger, update: Update, context: CallbackContext, mode):
             update.message.reply_text("Metadata removed from photo")
             logger.info("Document sending finished")
         except Exception as e:
-            logger.error(e)
-            logger.critical("EXCEPTION at file sender section for remove metadata")
+            logger.error("EXCEPTION at file sender section for remove metadata")
+            logger.error(e.args)
             update.message.reply_text("Error at sending clean file")
