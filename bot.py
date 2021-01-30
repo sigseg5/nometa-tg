@@ -17,7 +17,7 @@ basicConfig(level=INFO,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = getLogger()
 
-APP_VER = "1.0.0"
+APP_VER = "0.2.0"
 
 TOKEN = getenv("TOKEN")
 
