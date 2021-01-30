@@ -22,10 +22,5 @@ def delete_metadata_from_png(full_path_to_img):
     in 'documents' folder.
     :param full_path_to_img: path to folder with documents e.g.'documents/image.png'
     """
-    # image = Image.open(full_path_to_img)
-    #
-    # data = list(image.getdata())
-    # image_without_exif = Image.new(image.mode, image.size)
-    # image_without_exif.putdata(data)
-    #
-    # image_without_exif.save('documents/clean_image.png')
+    image = Image.open(full_path_to_img)
+    image.save('documents/clean_image.png')
