@@ -3,7 +3,6 @@ import piexif
 from PIL import Image
 
 
-# TODO: delete moving file from this func
 def delete_metadata(full_path_to_img):
     """
     This function used for remove metadata only from documents, if you send image 'as image' Telegram automatically

@@ -5,7 +5,12 @@ from telegram.update import Update
 FAWKES_MODE = getenv("FAWKES_MODE")
 
 
-def remove_original_doc_from_server(logger, update):
+def remove_original_doc_from_server(logger, update: Update):
+    """
+    Function for removing original file that sent by user with name "image" without extension
+    :param logger: Logger from logging package
+    :param update: Update from telegram.update package
+    """
     logger.info("Preparing for original file deletion on server")
     try:
         remove("documents/image")
@@ -18,6 +23,17 @@ def remove_original_doc_from_server(logger, update):
 
 
 def send_file(logger, update: Update, context: CallbackContext, mode):
+    """
+    Function for sending file after applied Fawkes or metadata deletion tool, you can specify mode by last param.
+    :param logger: Logger from logging package
+    :param update: Update from telegram.update package
+    :param context:
+    CallbackContext from telegram.ext package
+    :param mode: String value of mode for func. You can use `cloaked` and `clean` value.
+    `cloaked` for  send file after applied Fawkes tool with filename="clean_image_{0}_cloaked.png",
+    where {0} is FAWKES_MODE;
+    `clean` for send file after metadata deletion with name "clean_image.jpg" .
+    """
 
     logger.info("Preparing for sending cloaked file")
 
