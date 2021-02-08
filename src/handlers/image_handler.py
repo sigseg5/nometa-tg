@@ -15,7 +15,7 @@ def image_handler(update: Update, context: CallbackContext):
     2. Applying face hiding tool;
     3. Sending cloaked photo;
     4. Removing original and cloaked photos from server.
-    At this case not needed apply metadata remove tool because Telegram automatically removes this data at photo sending.
+    At this case not needed apply metadata remove tool because Telegram automatically removes this data at photo sending
     Yep, this function definitely should be refactored...
     """
     logger = getLogger()
@@ -32,7 +32,7 @@ def image_handler(update: Update, context: CallbackContext):
         if path.exists("images/image_{0}_cloaked.png".format(FAWKES_MODE)):
             is_faces_found = True
 
-        logger.info("Does faces found?: {}".format(is_faces_found))
+        logger.info("Does faces found?: %s", is_faces_found)
         logger.info("fawkes try-catch finished")
 
     except Exception as e:
