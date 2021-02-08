@@ -27,7 +27,7 @@ TOKEN = getenv("TOKEN")
 
 
 if __name__ == "__main__":
-    logger.info("Starting bot, version {}".format(APP_VER))
+    logger.info("Starting bot, version %s", APP_VER)
     updater = Updater(token=TOKEN, use_context=True)
 
     # Handlers for supported actions
