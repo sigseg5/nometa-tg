@@ -9,5 +9,5 @@ def result_of(cmd):
     :param cmd: command for run in string format
     """
     cmd_list_arr = cmd.split(" ")
-    result = check_output(cmd_list_arr).decode('utf-8')
+    result = check_output(cmd_list_arr).decode("utf-8")
     return result

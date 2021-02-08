@@ -22,4 +22,4 @@ def delete_metadata_from_png(full_path_to_img):
     :param full_path_to_img: path to folder with documents e.g.'documents/image.png'
     """
     image = Image.open(full_path_to_img)
-    image.save('documents/clean_image.png')
+    image.save("documents/clean_image.png")

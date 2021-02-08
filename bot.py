@@ -26,7 +26,7 @@ TOKEN = getenv("TOKEN")
 # FAWKES_APPLY = getenv("FAWKES_APPLY")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logger.info("Starting bot, version {}".format(APP_VER))
     updater = Updater(token=TOKEN, use_context=True)
 

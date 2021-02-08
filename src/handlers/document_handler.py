@@ -33,12 +33,12 @@ def document_handler(update: Update, context: CallbackContext):
 
     logger.info("document_handler started")
     file = context.bot.getFile(update.message.document.file_id)
-    file.download('documents/image')
+    file.download("documents/image")
 
     logger.info("Guessing file type")
-    kind = filetype.guess('documents/image')
+    kind = filetype.guess("documents/image")
     if kind is None:
-        logger.error('Cannot guess file type!')
+        logger.error("Cannot guess file type!")
         update.message.reply_text("Cannot guess file type. This file type not supported")
 
         try:
@@ -51,7 +51,7 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Error at removing file from server")
         return
 
-    logger.info('File MIME type: %s' % kind.mime)
+    logger.info("File MIME type: %s" % kind.mime)
 
     if kind.mime not in SUPPORTED_MIME_LIST:
         update.message.reply_text("{} not supported!".format(kind.mime))
@@ -83,7 +83,7 @@ def document_handler(update: Update, context: CallbackContext):
                 update.message.reply_text("Applying face hider tools, wait...")
                 _ = call(["fawkes", "-d", "documents", "--mode", FAWKES_MODE])
                 logger.info(result_of("ls documents"))
-                if path.exists('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE)):
+                if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
                     is_faces_found = True
 
                 logger.info("Does faces found?: {}".format(is_faces_found))
@@ -146,7 +146,7 @@ def document_handler(update: Update, context: CallbackContext):
                 update.message.reply_text("Applying face hider tools, wait...")
                 _ = call(["fawkes", "-d", "documents", "--mode", FAWKES_MODE])
                 logger.info(result_of("ls documents"))
-                if path.exists('documents/clean_image_{0}_cloaked.png'.format(FAWKES_MODE)):
+                if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
                     is_faces_found = True
 
                 logger.info("Does faces found?: {}".format(is_faces_found))
