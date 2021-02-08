@@ -51,7 +51,7 @@ def document_handler(update: Update, context: CallbackContext):
             update.message.reply_text("Error at removing file from server")
         return
 
-    logger.info("File MIME type: %s" % kind.mime)
+    logger.info("File MIME type: %s", kind.mime)
 
     if kind.mime not in SUPPORTED_MIME_LIST:
         update.message.reply_text("{} not supported!".format(kind.mime))
@@ -86,7 +86,7 @@ def document_handler(update: Update, context: CallbackContext):
                 if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
                     is_faces_found = True
 
-                logger.info("Does faces found?: {}".format(is_faces_found))
+                logger.info("Does faces found?: %s", is_faces_found)
                 logger.info("fawkes try-catch finished")
 
             except Exception as e:
@@ -149,7 +149,7 @@ def document_handler(update: Update, context: CallbackContext):
                 if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
                     is_faces_found = True
 
-                logger.info("Does faces found?: {}".format(is_faces_found))
+                logger.info("Does faces found?: %s", is_faces_found)
                 logger.info("fawkes try-catch finished")
 
             except Exception as e:
