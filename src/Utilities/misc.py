@@ -1,4 +1,5 @@
 from os import remove, getenv
+
 from telegram.ext import CallbackContext
 from telegram.update import Update
 
@@ -40,7 +41,8 @@ def send_file(logger, update: Update, context: CallbackContext, mode):
     if mode == "cloaked":
         try:
             _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
-                                          document=open("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE), "rb"))
+                                          document=open("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE),
+                                                        "rb"))
             logger.info("Cloaked file sending finished")
         except Exception as e:
             logger.error("EXCEPTION at cloaked file sender section")
@@ -50,7 +52,8 @@ def send_file(logger, update: Update, context: CallbackContext, mode):
     elif mode == "clean":
         try:
             _ = context.bot.send_document(chat_id=update.effective_message.chat_id,
-                                          document=open("documents/clean_image.jpg", "rb"))
+                                          document=open("documents/clean_image.jpg",
+                                                        "rb"))
             logger.info("Document without metadata sending finished")
             update.message.reply_text("Metadata removed from photo")
             logger.info("Document sending finished")
