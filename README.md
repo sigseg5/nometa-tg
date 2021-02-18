@@ -25,9 +25,9 @@ In the image below you can see an example of how the Fawkes tool works (photo fr
 ### Run in Docker
 * Add TOKEN to .env file. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram
 * (Optional) Run `pip freeze > requirements.txt` if you want to add your own dependencies installed by `pip`
-* Run `docker build --tag nometa-tg:0.1.0 .` for build image
-* (Optional) Run `docker run --env-file .env nometa-tg:0.1.0 env` for check all environment variables for this image
-* Run `docker run --env-file .env nometa-tg:0.1.0` to start
+* Run `docker build --tag nometa-tg .` for build image
+* (Optional) Run `docker run --env-file .env nometa-tg env` for check all environment variables for this image
+* Run `docker run --env-file .env nometa-tg` to start or `sudo docker run -d --restart unless-stopped --env-file .env nometa-tg` if you want automatically starts container after server reboot
 Note: Maybe you should add `sudo` before all Docker-assigned commands
 
 ### Run locally
