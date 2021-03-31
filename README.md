@@ -17,16 +17,14 @@ However, you can find full information about Fawkes tool at [GitHub](https://git
 ## Usage
 
 ### Choosing `FAWKES_MODE`
-FAWKES_MODE the tradeoff between privacy and perturbation size. Select from a min, low, mid, high. The higher the mode is, the more perturbation will add to the image and provide stronger protection.<br>
-Feel free to play with mods and choose that mostly suits you (I prefer `min` or `low`)<br>
-In the image below you can see an example of how the Fawkes tool works (photo from the Fawkes GitHub page).
+FAWKES_MODE the tradeoff between privacy and perturbation size. Select from `low`, `mid`, `high`. The higher the mode is, the more perturbation will add to the image and provide stronger protection.<br>
+Feel free to play with mods and choose that mostly suits you<br>
+In the image below you can see an example of how the Fawkes tool works (photo from the Fawkes GitHub page, deprecated).
 ![](http://sandlab.cs.uchicago.edu/fawkes/files/obama.png)
 
 ### Run in Docker
 * Add TOKEN to .env file. You can get token from [BotFather](https://www.t.me/BotFather) at Telegram
-* (Optional) Run `pip freeze > requirements.txt` if you want to add your own dependencies installed by `pip`
 * Run `docker build --tag nometa-tg .` for build image
-* (Optional) Run `docker run --env-file .env nometa-tg env` for check all environment variables for this image
 * Run `docker run --env-file .env nometa-tg` to start or `sudo docker run -d --restart unless-stopped --env-file .env nometa-tg` if you want automatically starts container after server reboot
 Note: Maybe you should add `sudo` before all Docker-assigned commands
 
