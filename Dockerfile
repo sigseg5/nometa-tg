@@ -1,5 +1,4 @@
 FROM python:3.7
-MAINTAINER <abc@test.com>
 
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN mkdir /app
