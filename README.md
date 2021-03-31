@@ -55,6 +55,3 @@ You may sponsor this project at my [Patreon](https://patreon.com/sigseg5), it wi
 
 ## Communicate
 Feel free to write me at [Telegram](https://t.me/kirill_nk)
-
-## Security
-At the moment, some dependencies cannot be updated to the latest version due to lack of compatibility with the Fawkes tool.
