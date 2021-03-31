@@ -1,4 +1,4 @@
-fawkes==0.3.2
-python-telegram-bot==13.1
+fawkes==1.0.2
+python-telegram-bot==13.4.1
 filetype==1.0.7
 piexif==1.1.3
