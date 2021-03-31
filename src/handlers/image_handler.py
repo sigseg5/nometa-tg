@@ -29,7 +29,7 @@ def image_handler(update: Update, context: CallbackContext):
         logger.info("Goes into fawkes section")
         update.message.reply_text("Applying face hider tools, wait...")
         _ = call(["fawkes", "-d", "images", "--mode", FAWKES_MODE])
-        if path.exists("images/image_{0}_cloaked.png".format(FAWKES_MODE)):
+        if path.exists("images/image_cloaked.png"):
             is_faces_found = True
 
         logger.info("Does faces found?: %s", is_faces_found)
@@ -44,7 +44,7 @@ def image_handler(update: Update, context: CallbackContext):
         logger.info("Preparing for sending photo")
         try:
             _ = context.bot.send_photo(chat_id=update.effective_message.chat_id,
-                                       photo=open("images/image_{0}_cloaked.png".format(FAWKES_MODE), "rb"))
+                                       photo=open("images/image_cloaked.png", "rb"))
             logger.info("Photo sending finished")
         except Exception as e:
             logger.error("EXCEPTION at photo sender section")
@@ -63,7 +63,7 @@ def image_handler(update: Update, context: CallbackContext):
 
         logger.info("Preparing for cloaked photo deletion on server")
         try:
-            remove("images/image_{0}_cloaked.png".format(FAWKES_MODE))
+            remove("images/image_cloaked.png")
             update.message.reply_text("Cloaked photo successfully removed from server")
             logger.info("Cloaked photo successfully removed")
         except Exception as e:

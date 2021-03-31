@@ -83,7 +83,7 @@ def document_handler(update: Update, context: CallbackContext):
                 update.message.reply_text("Applying face hider tools, wait...")
                 _ = call(["fawkes", "-d", "documents", "--mode", FAWKES_MODE])
                 logger.info(result_of("ls documents"))
-                if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
+                if path.exists("documents/clean_image_cloaked.png"):
                     is_faces_found = True
 
                 logger.info("Does faces found?: %s", is_faces_found)
@@ -111,7 +111,7 @@ def document_handler(update: Update, context: CallbackContext):
 
                 logger.info("Preparing for cloaked photo deletion on server")
                 try:
-                    remove("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE))
+                    remove("documents/clean_image_cloaked.png")
                     update.message.reply_text("Cloaked file successfully removed from server")
                     logger.info("Cloaked file successfully removed")
                 except Exception as e:
@@ -146,7 +146,7 @@ def document_handler(update: Update, context: CallbackContext):
                 update.message.reply_text("Applying face hider tools, wait...")
                 _ = call(["fawkes", "-d", "documents", "--mode", FAWKES_MODE])
                 logger.info(result_of("ls documents"))
-                if path.exists("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE)):
+                if path.exists("documents/clean_image_cloaked.png"):
                     is_faces_found = True
 
                 logger.info("Does faces found?: %s", is_faces_found)
@@ -174,7 +174,7 @@ def document_handler(update: Update, context: CallbackContext):
 
                 logger.info("Preparing for cloaked photo deletion on server")
                 try:
-                    remove("documents/clean_image_{0}_cloaked.png".format(FAWKES_MODE))
+                    remove("documents/clean_image_cloaked.png")
                     update.message.reply_text("Cloaked file successfully removed from server")
                     logger.info("Cloaked file successfully removed")
                 except Exception as e:
