@@ -1,7 +1,7 @@
+from telegram.ext import CallbackContext
 from telegram.update import Update
 
-
-def start_handler(update: Update):
+def start_handler(update: Update, context: CallbackContext):
     """
     This function sends a welcome message then user started a bot.
     :param update: Update from telegram.update
