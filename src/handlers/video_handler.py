@@ -1,9 +1,9 @@
 from logging import getLogger
 
+from telegram.ext import CallbackContext
 from telegram.update import Update
 
-
-def video_handler(update: Update):
+def video_handler(update: Update, context: CallbackContext):
     """
     This function is started if the bot receives video
     :param update: Update from telegram.update
